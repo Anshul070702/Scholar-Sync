@@ -23,7 +23,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
 
   return (
     <div className="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="rounded-lg bg-white p-6">
+      <div className="w-auto rounded-lg bg-white p-6  sm:w-[800px]">
         <h2 className="mb-4 text-lg font-semibold">Add New Details</h2>
         <form>
           <div className="mb-4">

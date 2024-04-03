@@ -21,7 +21,12 @@ const Card = () => {
           />
         );
       case "Projects":
-        return <Projects />;
+        return (
+          <Projects
+            title={"Add project details"}
+            description={"Projects that you have worked on before"}
+          />
+        );
       case "Position":
         return <Position />;
       case "Work Experience":
