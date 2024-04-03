@@ -28,13 +28,37 @@ const Card = () => {
           />
         );
       case "Position":
-        return <Position />;
+        return (
+          <Position
+            title={"Add Position of Responsibility"}
+            description={
+              "Add any PORs like college clubs, social service, community head, fest organized, etc."
+            }
+          />
+        );
       case "Work Experience":
-        return <WorkExperience />;
+        return (
+          <WorkExperience
+            title={"Add work Experience"}
+            description={"Your previous internship / full time experiences"}
+          />
+        );
       case "Achievements":
-        return <Achievements />;
+        return (
+          <Achievements
+            title={"Add Achievements/ Extracurricular Activity"}
+            description={
+              "Add your achievements of Hackathons, NGO services, Exam ranks, Clubs, etc."
+            }
+          />
+        );
       case "Certifications":
-        return <Certifications />;
+        return (
+          <Certifications
+            title={"Add Certificate/Course Details"}
+            description={"All Certifications/Courses you have done"}
+          />
+        );
       default:
         return null;
     }

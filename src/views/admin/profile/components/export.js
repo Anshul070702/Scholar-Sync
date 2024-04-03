@@ -5,6 +5,10 @@ import Education from "./Education";
 import Position from "./Position";
 import Projects from "./Projects";
 import WorkExperience from "./WorkExperience";
+import AddProjectDetails from "./AddProjectDetails";
+import AddPostionDetails from "./AddPositionDetail";
+import AddWorkExperience from "./AddWorkExperience";
+import AddCertificateDetails from "./AddCertificateDetails";
 
 export {
   Achievements,
@@ -14,4 +18,8 @@ export {
   Projects,
   WorkExperience,
   AddDetailsPopup,
+  AddProjectDetails,
+  AddPostionDetails,
+  AddWorkExperience,
+  AddCertificateDetails,
 };
