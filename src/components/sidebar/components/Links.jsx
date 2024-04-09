@@ -35,7 +35,7 @@ export function SidebarLinks(props) {
                       : "font-medium text-gray-600"
                   }`}
                 >
-                  {route.icon ? route.icon : <DashIcon />}{" "}
+                  {route.name!=="Create Account"&&route.icon ? route.icon : route.name!=="Create Account"&&<DashIcon />}{" "}
                 </span>
                 <p
                   className={`leading-1 ml-4 flex ${
@@ -44,7 +44,7 @@ export function SidebarLinks(props) {
                       : "font-medium text-gray-600"
                   }`}
                 >
-                  {route.name}
+                  {route.name!=="Create Account"&&route.name}
                 </p>
               </li>
               {activeRoute(route.path) ? (

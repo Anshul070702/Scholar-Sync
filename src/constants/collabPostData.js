@@ -21,6 +21,7 @@ const InstituteNames = [
   "IIT Bhilai",
   "IIT Goa",
   "IIT Jammu",
+  "IIIT Pune",
   "IIIT Delhi",
   "IIIT Hyderabad",
   "IIIT Bangalore",

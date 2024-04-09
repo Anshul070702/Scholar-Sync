@@ -5,6 +5,7 @@ import MainDashboard from "views/admin/default";
 import CollaborationWorkspace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import CollabPost from "views/admin/collabpost";
+import CreateAccount from "views/auth/CreateAccount";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -55,6 +56,13 @@ const routes = [
     path: "sign-in",
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
+  },
+  {
+    name: "Create Account",
+    layout: "/auth",
+    path: "create-account",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <CreateAccount />,
   },
 ];
 export default routes;
