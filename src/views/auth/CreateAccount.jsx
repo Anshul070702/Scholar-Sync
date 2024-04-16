@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import InputField from "components/fields/InputField";
 import { InstituteNames } from "../../constants/collabPostData";
 import { registerUser } from "constants/api";
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateAccount = () => {
-  const [collegeFilter, setCollegeFilter] = useState(""); // State for filtering college names
+  const navigate = useNavigate();
+  const [collegeFilter, setCollegeFilter] = useState("");
   const [role, setRole] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -15,8 +19,8 @@ const CreateAccount = () => {
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
+
   const handleSubmit = async (e) => {
-    console.log("tried");
     e.preventDefault();
     const fullName = e.target[2].value;
     const collegeName = e.target[3].value;
@@ -24,25 +28,29 @@ const CreateAccount = () => {
     const phoneNumber = e.target[5].value;
     const password = e.target[6].value;
     const domain = e.target[8].value;
-    const data = {
-      role,
-      fullName,
-      collegeName,
-      phoneNumber,
-      domain,
-      email,
-      password,
-    };
-    console.log(data);
+
+    // Perform form validation
+    if (!role || !fullName || !collegeName || !email || !phoneNumber || !password || !domain) {
+      toast.error("Please enter all required details.");
+      return;
+    }
+
     try {
       const response = await fetch(registerUser, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          role,
+          fullName,
+          collegeName,
+          phoneNumber,
+          domain,
+          email,
+          password,
+        }),
       });
-
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {
@@ -50,9 +58,12 @@ const CreateAccount = () => {
         console.log(responseData);
         localStorage.setItem("token", responseData.data.accessToken);
         localStorage.setItem("userData", JSON.stringify(responseData));
+        toast.success("Your account has been created successfully.");
+        navigate(-1);
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
+      toast.error("Failed to create account. Please try again later.");
     }
   };
 
@@ -184,6 +195,13 @@ const CreateAccount = () => {
           </div>
         </div>
       </div>
+
+      {/* Toast Properties */}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        closeButton={false}
+      />
     </form>
   );
 };

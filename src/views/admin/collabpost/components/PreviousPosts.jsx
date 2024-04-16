@@ -55,7 +55,7 @@ const PreviousPost = () => {
 
       {/* Previous Posts Data */}
       {PreviousPostsData.map((data, index) => (
-        <div className="flex h-full w-full items-start bg-white px-3 py-[20px] hover:shadow-2xl dark:!bg-navy-800 dark:shadow-none dark:hover:!bg-navy-700">
+        <div key={index} className="flex h-full w-full items-start bg-white px-3 py-[20px] hover:shadow-2xl dark:!bg-navy-800 dark:shadow-none dark:hover:!bg-navy-700">
           <div className="flex items-center justify-around gap-5">
             <div className="flex h-16 w-16 items-center justify-center">
               <img

@@ -1,9 +1,16 @@
-export const registerUser = "http://192.168.219.223:8000/api/v1/user/register";
-export const login = "http://192.168.219.223:8000/api/v1/user/login";
-export const logout = "http://192.168.219.223:8000/api/v1/user/logout";
+export const registerUser = "http://localhost:8000/api/v1/user/register";
+export const login = "http://localhost:8000/api/v1/user/login";
+export const logout = "http://localhost:8000/api/v1/user/logout";
 export const uploadOpenings =
-  "http://192.168.219.223:8000/api/v1/user/uploadOpenings";
+  "http://localhost:8000/api/v1/user/uploadOpenings";
 export const uploadProfilePicture =
-  "http://192.168.219.223:8000/api/v1/user/uploadProfilePicture";
+  "http://localhost:8000/api/v1/user/uploadProfilePicture";
 export const getAllJobPost =
-  "http://192.168.219.223:8000/api/v1/user/getAllJobPost";
+  "http://localhost:8000/api/v1/user/getAllJobPost";
+
+export const getUserOfSameCollege =
+  "http://localhost:8000/api/v1/user/getUserOfSameCollege";
+export const getJobsOfSameCollege =
+  "http://localhost:8000/api/v1/user/getJobsOfSameCollege";
+export const getPreviousPost =
+  "http://localhost:8000/api/v1/user/getPreviousPost";

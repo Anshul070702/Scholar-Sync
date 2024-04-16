@@ -3,8 +3,12 @@ import { FcGoogle } from "react-icons/fc";
 import Checkbox from "components/checkbox";
 import { Link } from "react-router-dom";
 import { login } from "../../constants/api";
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -28,6 +32,7 @@ export default function SignIn() {
         console.log(responseData);
         localStorage.setItem("token", responseData.data.accessToken);
         localStorage.setItem("userData", JSON.stringify(responseData));
+        navigate(-1)
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);

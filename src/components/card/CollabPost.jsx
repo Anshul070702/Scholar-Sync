@@ -1,23 +1,25 @@
 import React from "react";
 import { FaRegBookmark } from "react-icons/fa";
 
+
 const CollabPost = ({ data }) => {
   const {
-    ResearchArea,
-    ProfessorName,
-    College,
-    Topics,
-    Remote,
-    Stipend,
-    Duration,
-    Details,
-    DayPosted,
-    ApplyBy,
-  } = data;
+    titleOfJob,
+    typeOfJob,
+    stipend,
+    durationInMonths,
+    lastDate,
+    domain,
+    createdAt,
+    moreAboutJob,
+    user
 
+  } = data;
+  const { collegeName, fullName
+  } = user;
   // Function to open PDF file in a new window
   const openPDF = () => {
-    window.open(Details, "_blank");
+    window.open(moreAboutJob, "_blank");
   };
 
   return (
@@ -27,7 +29,7 @@ const CollabPost = ({ data }) => {
         {/* Research Area and Save icon */}
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-lg font-semibold dark:text-gray-100">
-            {ResearchArea}
+            {titleOfJob}
           </h2>
           <div className="cursor-pointer text-gray-500 hover:text-blue-500">
             <FaRegBookmark size={24} />
@@ -36,18 +38,18 @@ const CollabPost = ({ data }) => {
         {/* Professor Name and College Name */}
         <div className="flex">
           <p className="mr-2 text-sm text-gray-600 dark:text-gray-400">
-            {ProfessorName}
+            {fullName}
           </p>
           <span className="text-sm text-gray-500">|</span>
           <p className="ml-2 text-sm text-gray-600 dark:text-gray-400">
-            {College}
+            {collegeName}
           </p>
         </div>
       </div>
       {/* Topics */}
       <div className="mb-4">
         <div className="flex flex-wrap">
-          {Topics.map((topic, index) => (
+          {domain.map((topic, index) => (
             <div
               key={index}
               className="mr-2 mb-2 rounded-lg bg-gray-200 py-1 px-2 text-sm text-gray-800 dark:bg-gray-600 dark:bg-opacity-20 dark:text-gray-100"
@@ -64,7 +66,7 @@ const CollabPost = ({ data }) => {
             Remote/OnSite
           </p>
           <p className="text-center text-xl text-gray-800 dark:text-gray-300">
-            {Remote ? "Remote" : "Onsite"}
+            {typeOfJob}
           </p>
         </div>
         <div className="flex flex-col">
@@ -72,7 +74,7 @@ const CollabPost = ({ data }) => {
             Stipend
           </p>
           <p className="text-center text-xl text-gray-800 dark:text-gray-300">
-            {Stipend}
+            {stipend}
           </p>
         </div>
         <div className="flex flex-col">
@@ -80,19 +82,19 @@ const CollabPost = ({ data }) => {
             Duration
           </p>
           <p className="text-center text-xl text-gray-800 dark:text-gray-300">
-            {Duration}
+            {durationInMonths} months
           </p>
         </div>
       </div>
-      {/* DayPosted, ApplyBy, ApplyNow */}
+      {/* lastDate, ApplyBy, ApplyNow */}
       <div className="flex items-center justify-between">
         <div className="flex">
           <p className="mx-2 text-sm text-gray-600 dark:text-gray-100">
-            Posted {DayPosted}
+            Posted {createdAt}
           </p>
           <p>&bull;</p>
           <p className="mx-2 text-sm text-gray-800 dark:text-gray-100">
-            Apply by {ApplyBy}
+            Apply by {lastDate}
           </p>
         </div>
         <div>
@@ -109,6 +111,8 @@ const CollabPost = ({ data }) => {
       </div>
     </div>
   );
+
+
 };
 
 export default CollabPost;

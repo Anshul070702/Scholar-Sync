@@ -1,23 +1,68 @@
 import React, { useState } from "react";
 import { TopicNames } from "../../../../constants/collabPostData";
+import { uploadOpenings } from "../../../../constants/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
+  // State variables
   const [researchName, setResearchName] = useState("");
   const [professorName, setProfessorName] = useState("");
   const [instituteName, setInstituteName] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [newTopic, setNewTopic] = useState("");
-  const [remote, setRemote] = useState(false);
-  const [onSite, setOnSite] = useState(false);
+  const [role, setRole] = useState("");
   const [stipend, setStipend] = useState("");
   const [duration, setDuration] = useState("");
   const [applyBy, setApplyBy] = useState("");
   const [fileLink, setFileLink] = useState("");
   const [showTopicFilter, setShowTopicFilter] = useState(false);
 
-  // Handles topic add (at max 6)
+  // API Call
+  const handleSubmitAPI = async () => {
+    const data = {
+      titleOfJob: researchName,
+      professor: professorName,
+      institute: instituteName,
+      domain: selectedTopics,
+      isRemote: role === "remote",
+      isOnSite: role === "onsite",
+      stipend: stipend,
+      durationInMonths: duration,
+      lastDate: applyBy,
+      detailsLink: fileLink
+    };
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(uploadOpenings, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        const responseData = await response.json();
+        localStorage.setItem("userData", JSON.stringify(responseData));
+        return true;
+      }
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+      return false;
+    }
+  };
+
+
+  const handleTopicInputChange = (event) => {
+    setNewTopic(event.target.value);
+    setShowTopicFilter(event.target.value.trim() !== "");
+  };
+
   const handleTopicAdd = (topic) => {
     if (topic && !selectedTopics.includes(topic) && selectedTopics.length < 6) {
       setSelectedTopics([...selectedTopics, topic]);
@@ -26,33 +71,17 @@ const Form = () => {
     }
   };
 
-  // Topics Remove Logic
   const handleTopicRemove = (topic) => {
     setSelectedTopics(selectedTopics.filter((t) => t !== topic));
   };
 
-  const handleTopicInputChange = (event) => {
-    setNewTopic(event.target.value);
-    setShowTopicFilter(event.target.value.trim() !== "");
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
   };
 
-  // Removes Selected topics Topic
-  const handleRemoteChange = () => {
-    if (!remote) {
-      setRemote(true);
-      setOnSite(false);
-    }
-  };
 
-  const handleOnSiteChange = () => {
-    if (!onSite) {
-      setOnSite(true);
-      setRemote(false);
-    }
-  };
-
-  const handleSubmit = () => {
-    // Check if all required fields are filled
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (
       !researchName ||
       !professorName ||
@@ -63,31 +92,30 @@ const Form = () => {
       !applyBy ||
       !fileLink
     ) {
-      // If any required field is empty, show toast message to enter all details
       toast.error("Please enter all required details.");
-      return;
+    } else {
+      const success = await handleSubmitAPI();
+      if (success) {
+        toast.success("Your collab post has been created successfully.");
+        setResearchName("");
+        setProfessorName("");
+        setInstituteName("");
+        setSelectedTopics([]);
+        setNewTopic("");
+        setRole("");
+        setStipend("");
+        setDuration("");
+        setApplyBy("");
+        setFileLink("");
+        setShowTopicFilter(false);
+      } else {
+        toast.error("Failed to create collab post. Please try again later.");
+      }
     }
-
-    // All details are filled, show success message
-    toast.success("Your collab post has been created successfully.");
-
-    // Reset all the entered details
-    setResearchName("");
-    setProfessorName("");
-    setInstituteName("");
-    setSelectedTopics([]);
-    setNewTopic("");
-    setRemote(false);
-    setOnSite(false);
-    setStipend("");
-    setDuration("");
-    setApplyBy("");
-    setFileLink("");
-    setShowTopicFilter(false);
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="mb-6 text-center text-2xl font-semibold">
         Enter details for your Post
       </h2>
@@ -178,23 +206,26 @@ const Form = () => {
       </div>
 
       {/* Remote/Onsite */}
-      <div className="mb-4">
-        <div>
-          <input
-            type="checkbox"
-            checked={remote}
-            onChange={handleRemoteChange}
-            className="mr-2"
-          />
-          <label className="mr-4">Remote</label>
-          <input
-            type="checkbox"
-            checked={onSite}
-            onChange={handleOnSiteChange}
-            className="mr-2"
-          />
-          <label>Onsite</label>
-        </div>
+      <div className="m-4 flex items-center justify-between px-2 dark:text-white">
+        {/* Student Radio Button */}
+        <label htmlFor="remote">Remote</label>
+        <input
+          type="radio"
+          id="remote"
+          value="remote"
+          name="role"
+          onChange={handleRoleChange}
+        />
+
+        {/* onSite Radio Button */}
+        <label htmlFor="onsite">onSite</label>
+        <input
+          type="radio"
+          id="onSite"
+          value="onSite"
+          name="role"
+          onChange={handleRoleChange}
+        />
       </div>
       <div className="mb-4">
         <label className="mb-2 block">
@@ -252,18 +283,19 @@ const Form = () => {
       <div>
         <button
           className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-          onClick={handleSubmit}
+          type="submit"
         >
           Submit
         </button>
       </div>
+
+      {/* Toast Properties */}
       <ToastContainer
         position="top-center"
         autoClose={3000}
         closeButton={false}
-        onClose={() => setResearchName("")}
       />
-    </div>
+    </form>
   );
 };
 
