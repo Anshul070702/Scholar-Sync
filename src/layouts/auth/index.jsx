@@ -4,6 +4,7 @@ import routes from "routes.js";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 
 export default function Auth() {
+
   // Get Routes
   const location = useLocation();
   const getRoutes = (routes) => {
@@ -18,7 +19,7 @@ export default function Auth() {
     });
   };
 
-  document.documentElement.dir = "ltr";
+  // document.documentElement.dir = "ltr";
   return (
     <div className="flex  flex-col items-center justify-center bg-white dark:bg-navy-900">
       <FixedPlugin />
