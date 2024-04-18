@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 // Icon Imports
-import { MdHome, MdPerson, MdLock } from "react-icons/md";
+import { MdHome, MdPerson, MdLock, MdChat } from "react-icons/md";
 import { FaHandshake } from "react-icons/fa";
 
 /* */
@@ -48,6 +48,13 @@ const routes = [
     layout: "/admin",
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
+    component: <Profile />,
+  },
+  {
+    name: "Chat",
+    layout: "/admin",
+    path: "chat",
+    icon: <MdChat className="h-6 w-6" />,
     component: <Profile />,
   },
   {

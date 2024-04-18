@@ -25,7 +25,7 @@ const Dashboard = () => {
   return (
     <div className="mt-4">
       <h1 className="text-5xl bg-[#5f67ff] inline-block py-4 px-12 text-white rounded-tr-2xl rounded-br-2xl">Scholar Sync</h1>
-      <div className="center mt-2 text-4xl text-[#5f67ff] font-bold">
+      <div className="center mt-4 text-4xl text-[#5f67ff] font-bold">
         <Typewriter
           options={{
             strings: sentences,

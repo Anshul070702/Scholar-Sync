@@ -5,8 +5,7 @@ export const uploadOpenings =
   "http://localhost:8000/api/v1/user/uploadOpenings";
 export const uploadProfilePicture =
   "http://localhost:8000/api/v1/user/uploadProfilePicture";
-export const getAllJobPost =
-  "http://localhost:8000/api/v1/user/getAllJobPost";
+export const getAllJobPost = "http://localhost:8000/api/v1/user/getAllJobPost";
 
 export const getUserOfSameCollege =
   "http://localhost:8000/api/v1/user/getUserOfSameCollege";

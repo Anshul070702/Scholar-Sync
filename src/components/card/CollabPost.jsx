@@ -1,6 +1,6 @@
 import React from "react";
+import { format, differenceInWeeks } from "date-fns";
 import { FaRegBookmark } from "react-icons/fa";
-
 
 const CollabPost = ({ data }) => {
   const {
@@ -12,15 +12,23 @@ const CollabPost = ({ data }) => {
     domain,
     createdAt,
     moreAboutJob,
-    user
-
+    user,
   } = data;
-  const { collegeName, fullName
-  } = user;
+
+  const { collegeName, fullName } = user;
+
   // Function to open PDF file in a new window
   const openPDF = () => {
     window.open(moreAboutJob, "_blank");
   };
+
+  // Format createdAt to display weeks ago
+  const createdAtWeeksAgo = differenceInWeeks(new Date(), new Date(createdAt));
+  const formattedCreatedAt =
+    createdAtWeeksAgo === 0 ? "This week" : `${createdAtWeeksAgo} weeks ago`;
+
+  // Format lastDate to display in yyyy-MM-dd format
+  const formattedLastDate = format(new Date(lastDate), "yyyy-MM-dd");
 
   return (
     <div className="border-top border-r-1 mb-8 rounded-lg border-t-2 border-l-2 border-solid border-white border-opacity-40 bg-white p-6 shadow-md  backdrop-filter dark:bg-white dark:bg-opacity-5 dark:text-gray-200">
@@ -90,11 +98,11 @@ const CollabPost = ({ data }) => {
       <div className="flex items-center justify-between">
         <div className="flex">
           <p className="mx-2 text-sm text-gray-600 dark:text-gray-100">
-            Posted {createdAt}
+            Posted {formattedCreatedAt}
           </p>
           <p>&bull;</p>
           <p className="mx-2 text-sm text-gray-800 dark:text-gray-100">
-            Apply by {lastDate}
+            Apply by {formattedLastDate}
           </p>
         </div>
         <div>
@@ -111,8 +119,6 @@ const CollabPost = ({ data }) => {
       </div>
     </div>
   );
-
-
 };
 
 export default CollabPost;
