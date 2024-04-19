@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import {
-  Education,
-  Projects,
-  Position,
-  WorkExperience,
-  Achievements,
+  AddCertificateDetails,
+  AddDetailsPopup,
+  AddPositionDetail,
+  AddProjectDetails,
+  AddWorkExperience,
   Certifications,
+  Education,
+  Position,
+  Projects,
+  Skill,
+  WorkExperience,
 } from "./components/export";
 
 const Card = () => {
@@ -21,15 +26,44 @@ const Card = () => {
           />
         );
       case "Projects":
-        return <Projects />;
+        return (
+          <Projects
+            title={"Add project details"}
+            description={"Projects that you have worked on before"}
+          />
+        );
       case "Position":
-        return <Position />;
+        return (
+          <Position
+            title={"Add Position of Responsibility"}
+            description={
+              "Add any PORs like college clubs, social service, community head, fest organized, etc."
+            }
+          />
+        );
       case "Work Experience":
-        return <WorkExperience />;
-      case "Achievements":
-        return <Achievements />;
+        return (
+          <WorkExperience
+            title={"Add work Experience"}
+            description={"Your previous internship / full time experiences"}
+          />
+        );
+      case "Skill":
+        return (
+          <Skill
+            title={"Add Skill/ Extracurricular Activity"}
+            description={
+              "Add your Skill of Hackathons, NGO services, Exam ranks, Clubs, etc."
+            }
+          />
+        );
       case "Certifications":
-        return <Certifications />;
+        return (
+          <Certifications
+            title={"Add Certificate/Course Details"}
+            description={"All Certifications/Courses you have done"}
+          />
+        );
       default:
         return null;
     }
@@ -48,18 +82,18 @@ const Card = () => {
         molestias fugiat, ad neque sit?
       </div>
       <div className=" mx-auto mt-10 overflow-hidden rounded-lg bg-white shadow-md">
-        <div className="bg-gray-100 p-6">
+        <div className="bg-gray-200 p-6">
           <div className=" justify-end">
             {/* Header and buttons */}
-            <div className="flex items-center">
-              <div className="text-black mr-4 h-12 w-12 rounded-full bg-gray-100">
+            <div className="flex items-center ">
+              <div className="text-black mr-4 h-16 w-16 overflow-hidden rounded-full bg-gray-300">
                 <img
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
                   alt=""
-                  srcset=""
-                  className="rounded-full"
+                  className="h-full w-full object-cover"
                 />
               </div>
+
               <div>
                 <h2 className="text-lg font-semibold">Person's Name</h2>
                 <p className="text-sm">Role</p>
@@ -87,6 +121,12 @@ const Card = () => {
               Education
             </button>
             <button
+              onClick={() => setSelectedSection("Skill")}
+              className=" text-black rounded px-4 py-2  focus:outline-none"
+            >
+              Skill
+            </button>
+            <button
               onClick={() => setSelectedSection("Projects")}
               className=" text-black rounded px-4 py-2  focus:outline-none"
             >
@@ -104,12 +144,7 @@ const Card = () => {
             >
               Work Experience
             </button>
-            <button
-              onClick={() => setSelectedSection("Achievements")}
-              className=" text-black rounded px-4 py-2  focus:outline-none"
-            >
-              Achievements
-            </button>
+
             <button
               onClick={() => setSelectedSection("Certifications")}
               className=" text-black rounded px-4 py-2  focus:outline-none"

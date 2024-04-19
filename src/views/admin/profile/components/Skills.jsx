@@ -5,7 +5,7 @@ const Card = ({ logoUrl, title, description }) => {
   const [detailsList, setDetailsList] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const [newDetails, setNewDetails] = useState({
-    achievement: "",
+    skill: "",
   });
   const [editIndex, setEditIndex] = useState(null);
 
@@ -19,7 +19,7 @@ const Card = ({ logoUrl, title, description }) => {
       setDetailsList([...detailsList, newDetails]);
     }
     setShowInput(false);
-    setNewDetails({ achievement: "" });
+    setNewDetails({ skill: "" });
   };
 
   const handleEditDetails = (index) => {
@@ -76,17 +76,17 @@ const Card = ({ logoUrl, title, description }) => {
             <div className="mb-4">
               <label
                 className="mb-2 block text-sm font-bold text-gray-700"
-                htmlFor="achievement"
+                htmlFor="skill"
               >
-                Achievement:
+                Skill:
               </label>
               <input
                 type="text"
-                name="achievement"
-                id="achievement"
+                name="skill"
+                id="skill"
                 className="w-full rounded border px-4 py-2"
                 onChange={handleChange}
-                value={newDetails.achievement}
+                value={newDetails.skill}
               />
             </div>
           </form>
@@ -96,7 +96,7 @@ const Card = ({ logoUrl, title, description }) => {
         <ul>
           {detailsList.map((details, index) => (
             <li key={index} className="m-5">
-              {details.achievement}
+              {details.skill}
               <div className="my-8 flex">
                 <button
                   className="text-black mr-2 rounded bg-yellow-100 px-2 py-1 hover:bg-yellow-200 focus:bg-yellow-200 focus:outline-none"
