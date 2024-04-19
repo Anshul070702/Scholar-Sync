@@ -63,21 +63,6 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="positionOfResponsibility"
-            >
-              Position of Responsibility:
-            </label>
-            <input
-              type="text"
-              name="positionOfResponsibility"
-              id="positionOfResponsibility"
-              className="w-full rounded border px-4 py-2"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
               htmlFor="title"
             >
               Title:
@@ -105,39 +90,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="accomplishments"
-            >
-              What did you accomplish with this POR?
-            </label>
-            {details.accomplishments.map((accomplishment, index) => (
-              <div key={index} className="mb-2 flex">
-                <input
-                  type="text"
-                  name="accomplishments"
-                  className="mr-2 w-full rounded border px-4 py-2"
-                  value={accomplishment}
-                  onChange={(e) => handleAccomplishmentChange(e, index)}
-                />
-                <button
-                  type="button"
-                  className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600 focus:bg-red-600 focus:outline-none"
-                  onClick={() => handleRemoveAccomplishment(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
-              onClick={handleAddAccomplishment}
-            >
-              Add Accomplishment
-            </button>
-          </div>
+
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
@@ -152,39 +105,6 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               className="w-full rounded border px-4 py-2"
               onChange={handleChange}
             />
-          </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="skillsUsed"
-            >
-              Skills Used:
-            </label>
-            {details.skillsUsed.map((skill, index) => (
-              <div key={index} className="mb-2 flex">
-                <input
-                  type="text"
-                  name="skillsUsed"
-                  className="mr-2 w-full rounded border px-4 py-2"
-                  value={skill}
-                  onChange={(e) => handleSkillsChange(e, index)}
-                />
-                <button
-                  type="button"
-                  className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600 focus:bg-red-600 focus:outline-none"
-                  onClick={() => handleRemoveSkill(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
-              onClick={handleAddSkill}
-            >
-              Add Skill
-            </button>
           </div>
           <div className="flex justify-end">
             <button

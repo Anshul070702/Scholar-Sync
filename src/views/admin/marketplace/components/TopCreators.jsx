@@ -1,11 +1,10 @@
 import React from "react";
 import Card from "components/card";
 import Creators from "../variables/temp";
-// import { useState, useEffect } from "react";
-// import { getUserOfSameCollege } from "../../../../constants/api";
 
-const TopCreators = () => {
-  // const [APIdata, setData] = useState([]);
+const TopCreators = ({ setLeftSide }) => {
+
+ // const [APIdata, setData] = useState([]);
   // useEffect(() => {
   //   handle();
   // }, []);
@@ -31,6 +30,11 @@ const TopCreators = () => {
   //   }
   // };
 
+  const handleSelectCreator = () => {
+    // Update the leftSide state to render 'card' on the left side
+    setLeftSide('card');
+  };
+
   return (
     <Card extra={"h-[auto] w-full"}>
       {/* Top Creator Header */}
@@ -38,13 +42,15 @@ const TopCreators = () => {
         <h4 className="text-lg font-bold text-navy-700 dark:text-white">
           Indian Institute of Information Technology, Pune
         </h4>
-        <button className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
+        <button
+          className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
+        >
           Select
         </button>
       </div>
 
+      {/* List of Creators */}
       <div>
-        {/* Top Creator Heading */}
         {Creators.map((data, index) => (
           <div
             key={index}
@@ -70,7 +76,12 @@ const TopCreators = () => {
             </div>
             {/* View Profile Button */}
             <div>
-              <button className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
+              <button
+                // onClick={() => console.log("View profile clicked")} // Add logic to view profile
+                className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
+              
+          onClick={handleSelectCreator}
+              >
                 View
               </button>
             </div>

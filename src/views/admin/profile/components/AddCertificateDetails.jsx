@@ -107,34 +107,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               Add Description
             </button>
           </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="completionMonth"
-            >
-              When you completed this certification/course?
-            </label>
-            <div className="flex">
-              <select
-                name="completionMonth"
-                id="completionMonth"
-                className="mr-2 w-1/2 rounded border px-4 py-2"
-                onChange={handleChange}
-              >
-                <option value="">Choose Month</option>
-                {/* Add months options */}
-              </select>
-              <select
-                name="completionYear"
-                id="completionYear"
-                className="w-1/2 rounded border px-4 py-2"
-                onChange={handleChange}
-              >
-                <option value="">Choose Year</option>
-                {/* Add years options */}
-              </select>
-            </div>
-          </div>
+          
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
@@ -150,39 +123,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="skillsUsed"
-            >
-              Skills Used:
-            </label>
-            {details.skillsUsed.map((skill, index) => (
-              <div key={index} className="mb-2 flex">
-                <input
-                  type="text"
-                  name="skillsUsed"
-                  className="mr-2 w-full rounded border px-4 py-2"
-                  value={skill}
-                  onChange={(e) => handleSkillsChange(e, index)}
-                />
-                <button
-                  type="button"
-                  className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600 focus:bg-red-600 focus:outline-none"
-                  onClick={() => handleRemoveSkill(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
-              onClick={handleAddSkill}
-            >
-              Add Skill
-            </button>
-          </div>
+         
           <div className="flex justify-end">
             <button
               type="button"

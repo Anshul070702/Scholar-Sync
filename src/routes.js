@@ -6,6 +6,7 @@ import CollaborationWorkspace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import CollabPost from "views/admin/collabpost";
 import CreateAccount from "views/auth/CreateAccount";
+import Profile2 from "views/admin/profile/profile2/index";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -56,6 +57,13 @@ const routes = [
     path: "chat",
     icon: <MdChat className="h-6 w-6" />,
     component: <Profile />,
+  },
+  {
+    name: "profile2",
+    layout: "/admin",
+    path: "profile2",
+    icon: <MdChat className="h-6 w-6" />,
+    component: <Profile2 />,
   },
   {
     name: "Sign In",
