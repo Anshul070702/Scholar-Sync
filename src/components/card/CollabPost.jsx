@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { format, differenceInWeeks } from "date-fns";
 import { FaRegBookmark } from "react-icons/fa";
+import { userAppliedOnJob } from "../../constants/api";
 
 const CollabPost = ({ data }) => {
+  const userID = data?._id;
+  const [applied, setApplied] = useState(false);
   const {
     titleOfJob,
     typeOfJob,
@@ -14,12 +17,35 @@ const CollabPost = ({ data }) => {
     moreAboutJob,
     user,
   } = data;
-
   const { collegeName, fullName } = user;
 
   // Function to open PDF file in a new window
   const openPDF = () => {
     window.open(moreAboutJob, "_blank");
+  };
+
+  // Function to handle "Apply Now" button click
+  const handleApplyNow = async () => {
+    setApplied(true);
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(userAppliedOnJob + userID, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        // body: JSON.stringify({ userID }),
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+      } else {
+        console.log("response was not ok");
+      }
+    } catch (error) {
+      throw new error("There was a problem with connecting to the server");
+    }
   };
 
   // Format createdAt to display weeks ago
@@ -112,8 +138,13 @@ const CollabPost = ({ data }) => {
           >
             View Details
           </button>
-          <button className="rounded-md bg-blue-500 py-2 px-6 text-white hover:bg-blue-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-            Apply Now
+          <button
+            className={`mr-4 rounded-md bg-blue-500 py-2 px-6 text-white hover:bg-blue-700 dark:bg-purple-700 dark:text-white dark:hover:bg-purple-500 dark:active:bg-purple-300
+            ${applied ? "cursor-not-allowed bg-gray-400" : ""}`}
+            onClick={!applied ? handleApplyNow : null}
+            disabled={applied}
+          >
+            {applied ? "Applied" : "Apply Now"}
           </button>
         </div>
       </div>

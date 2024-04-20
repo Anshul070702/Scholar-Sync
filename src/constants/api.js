@@ -1,22 +1,24 @@
 //  Host
-const host = "172.20.10.5:8000";
+const host = "https://scholar-sync-backend-3.onrender.com";
+// const host = "https://scholar-sync-backend-3.onrender.com";
 
 // User APIs
-const user = `http://${host}/api/v1/user`;
+const user = `${host}/api/v1/user`;
 export const registerUser = `${user}/register`;
 export const login = `${user}/login`;
 export const logout = `${user}/logout`;
 export const getUserOfSameCollege = `${user}/getUserOfSameCollege`;
 
 // Job APIs
-const job = `http://${host}/api/v1/job`;
+const job = `${host}/api/v1/job`;
 export const uploadOpenings = `${job}/uploadOpenings`;
 export const getAllJobPost = `${job}/getAllJobPost`;
 export const getJobsOfSameCollege = `${job}/getJobsOfSameCollege`;
 export const getPreviousPost = `${job}/getPreviousPost`;
+export const userAppliedOnJob = `${job}/userAppliedOnJob/`;
 
 // Profile APIs
-const profile = `http://${host}/api/v1/profile`;
+const profile = `${host}/api/v1/profile`;
 export const uploadProfilePicture = `${profile}/uploadProfilePicture`;
 export const addCertificate = `${profile}/addCertificate`;
 export const addProject = `${profile}/addProject`;
@@ -25,6 +27,7 @@ export const addEducation = `${profile}/addEducation`;
 export const addSkill = `${profile}/addSkill`;
 export const addWorkExperience = `${profile}/addWorkExperience`;
 export const viewProfile = `${profile}/viewProfile/`;
+export const getNotification = `${profile}/getNotification`;
 
 // Delete APIs
 export const deleteCertificate = `${profile}/deleteCerticate/`;
