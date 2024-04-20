@@ -15,7 +15,7 @@ const Card = ({ logoUrl, title, description }) => {
   };
 
   return (
-    <div className=" mx-auto mt-10 overflow-hidden rounded-lg bg-white shadow-md">
+    <div className="mx-auto mt-10 overflow-hidden rounded-lg bg-white shadow-md">
       <div className="flex items-center p-4">
         {/* Document Logo */}
         <div className="mr-4 h-12 w-12 justify-center overflow-hidden rounded-full bg-gray-100 align-middle">
@@ -38,7 +38,7 @@ const Card = ({ logoUrl, title, description }) => {
         </div>
       </div>
       {/* Render added details */}
-      <div className="p-4">
+      <div className="p-4 ">
         <ul>
           {detailsList.map((details, index) => (
             <li key={index}>
@@ -51,10 +51,7 @@ const Card = ({ logoUrl, title, description }) => {
       </div>
       {/* Render popup if showPopup is true */}
       {showPopup && (
-        <AddCertificateDetails
-          onClose={togglePopup}
-          onSave={handleAddDetails}
-        />
+        <AddCertificateDetails onClose={togglePopup} onSave={handleAddDetails} />
       )}
     </div>
   );

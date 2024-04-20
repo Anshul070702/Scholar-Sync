@@ -1,60 +1,43 @@
 import React, { useState } from "react";
+import { addWorkExperience } from "../../../../constants/api";
 
 const AddDetailsPopup = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     companyName: "",
-    internshipType: "",
-    CertificateLink: "",
-    internshipTitle: "",
-    location: "",
+    certificateLink: "", // corrected field name
     startDate: "",
     endDate: "",
-    currentlyWorking: false,
-    description: [],
-    skillsUsed: [],
-    certificateLink: "",
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const val = type === "checkbox" ? checked : value;
-    setDetails({ ...details, [name]: val });
+    const { name, value } = e.target;
+    setDetails({ ...details, [name]: value });
   };
 
-  const handleDescriptionChange = (e, index) => {
-    const newDescription = [...details.description];
-    newDescription[index] = e.target.value;
-    setDetails({ ...details, description: newDescription });
-  };
-
-  const handleAddDescription = () => {
-    setDetails({ ...details, description: [...details.description, ""] });
-  };
-
-  const handleRemoveDescription = (index) => {
-    const newDescription = [...details.description];
-    newDescription.splice(index, 1);
-    setDetails({ ...details, description: newDescription });
-  };
-
-  const handleSkillsChange = (e, index) => {
-    const newSkills = [...details.skillsUsed];
-    newSkills[index] = e.target.value;
-    setDetails({ ...details, skillsUsed: newSkills });
-  };
-
-  const handleAddSkill = () => {
-    setDetails({ ...details, skillsUsed: [...details.skillsUsed, ""] });
-  };
-
-  const handleRemoveSkill = (index) => {
-    const newSkills = [...details.skillsUsed];
-    newSkills.splice(index, 1);
-    setDetails({ ...details, skillsUsed: newSkills });
-  };
-
-  const handleSave = () => {
-    onSave(details);
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(addWorkExperience, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(details), // Send the details object as JSON string in the request body
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        // Assuming the API returns a JSON response with the newly added work experience details
+        const data = await response.json();
+        console.log(data);
+        // Pass the data to the onSave callback
+        onSave(data);
+      }
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+    }
+    onSave(details); // This line seems redundant, but I'll keep it as it is in your original code
     onClose();
   };
 
@@ -82,14 +65,14 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="Certificate Link"
+              htmlFor="certificateLink"
             >
               Certificate Link
             </label>
             <input
               type="text"
-              name="Certificate Link"
-              id="Certificate Link"
+              name="certificateLink"
+              id="certificateLink"
               className="w-full rounded border px-4 py-2"
               onChange={handleChange}
             />
@@ -103,7 +86,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               Start Date:
             </label>
             <input
-              type="text"
+              type="date" // changed to type date
               name="startDate"
               id="startDate"
               className="w-full rounded border px-4 py-2"
@@ -118,7 +101,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               End Date:
             </label>
             <input
-              type="text"
+              type="date" // changed to type date
               name="endDate"
               id="endDate"
               className="w-full rounded border px-4 py-2"

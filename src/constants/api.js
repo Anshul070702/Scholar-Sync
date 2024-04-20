@@ -1,15 +1,35 @@
-export const registerUser = "http://localhost:8000/api/v1/user/register";
-export const login = "http://localhost:8000/api/v1/user/login";
-export const logout = "http://localhost:8000/api/v1/user/logout";
-export const uploadOpenings =
-  "http://localhost:8000/api/v1/user/uploadOpenings";
-export const uploadProfilePicture =
-  "http://localhost:8000/api/v1/user/uploadProfilePicture";
-export const getAllJobPost = "http://localhost:8000/api/v1/user/getAllJobPost";
+//  Host
+const host = "172.20.10.5:8000";
 
-export const getUserOfSameCollege =
-  "http://localhost:8000/api/v1/user/getUserOfSameCollege";
-export const getJobsOfSameCollege =
-  "http://localhost:8000/api/v1/user/getJobsOfSameCollege";
-export const getPreviousPost =
-  "http://localhost:8000/api/v1/user/getPreviousPost";
+// User APIs
+const user = `http://${host}/api/v1/user`;
+export const registerUser = `${user}/register`;
+export const login = `${user}/login`;
+export const logout = `${user}/logout`;
+export const getUserOfSameCollege = `${user}/getUserOfSameCollege`;
+
+// Job APIs
+const job = `http://${host}/api/v1/job`;
+export const uploadOpenings = `${job}/uploadOpenings`;
+export const getAllJobPost = `${job}/getAllJobPost`;
+export const getJobsOfSameCollege = `${job}/getJobsOfSameCollege`;
+export const getPreviousPost = `${job}/getPreviousPost`;
+
+// Profile APIs
+const profile = `http://${host}/api/v1/profile`;
+export const uploadProfilePicture = `${profile}/uploadProfilePicture`;
+export const addCertificate = `${profile}/addCertificate`;
+export const addProject = `${profile}/addProject`;
+export const addPosOfRes = `${profile}/addPosOfRes`;
+export const addEducation = `${profile}/addEducation`;
+export const addSkill = `${profile}/addSkill`;
+export const addWorkExperience = `${profile}/addWorkExperience`;
+export const viewProfile = `${profile}/viewProfile/`;
+
+// Delete APIs
+export const deleteCertificate = `${profile}/deleteCerticate/`;
+export const deleteProject = `${profile}/deleteProject/`;
+export const deletePosOfRes = `${profile}/deletePosOfRes/`;
+export const deleteEducation = `${profile}/deleteEducation/`;
+export const deleteWorkExperience = `${profile}/deleteWorkExperience/`;
+export const deleteSkill = `${profile}/deleteSkill/`;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { addEducation } from "../../../../constants/api";
 
 const AddDetailsPopup = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
@@ -16,7 +17,29 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
     setDetails({ ...details, [name]: value });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(addEducation, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(details), // Send the details object as JSON string in the request body
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        // Assuming the API returns a JSON response with the newly added education details
+        const data = await response.json();
+        console.log(data);
+        // Pass the data to the onSave callback
+        onSave(data);
+      }
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+    }
     onSave(details);
     onClose();
   };
@@ -86,6 +109,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               onChange={handleChange}
             />
           </div>
+
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
@@ -94,7 +118,7 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               Start Date:
             </label>
             <input
-              type="text"
+              type="date" // changed to type date
               name="startDate"
               id="startDate"
               className="w-full rounded border px-4 py-2"
@@ -109,13 +133,14 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
               End Date:
             </label>
             <input
-              type="text"
+              type="date" // changed to type date
               name="endDate"
               id="endDate"
               className="w-full rounded border px-4 py-2"
               onChange={handleChange}
             />
           </div>
+
           {/* Add more input fields for other details */}
           <div className="flex justify-end">
             <button

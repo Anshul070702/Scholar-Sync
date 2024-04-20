@@ -59,13 +59,6 @@ const routes = [
     component: <Profile />,
   },
   {
-    name: "profile2",
-    layout: "/admin",
-    path: "profile2",
-    icon: <MdChat className="h-6 w-6" />,
-    component: <Profile2 />,
-  },
-  {
     name: "Sign In",
     layout: "/auth",
     path: "sign-in",
@@ -78,6 +71,13 @@ const routes = [
     path: "create-account",
     icon: <MdLock className="h-6 w-6" />,
     component: <CreateAccount />,
+  },
+  {
+    name: "profile2",
+    layout: "/admin",
+    path: "profile2",
+    icon: <MdChat className="h-6 w-6" />,
+    component: <Profile2 />,
   },
 ];
 export default routes;

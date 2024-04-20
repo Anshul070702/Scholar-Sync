@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { addSkill } from "../../../../constants/api";
 
 const Card = ({ logoUrl, title, description }) => {
   const [detailsList, setDetailsList] = useState([]);
@@ -9,7 +10,26 @@ const Card = ({ logoUrl, title, description }) => {
   });
   const [editIndex, setEditIndex] = useState(null);
 
-  const handleAddDetails = () => {
+  const handleAddDetails = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(addSkill, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newDetails), // changed details to newDetails
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        const data = await response.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+    }
     if (editIndex !== null) {
       const updatedDetailsList = [...detailsList];
       updatedDetailsList[editIndex] = newDetails;

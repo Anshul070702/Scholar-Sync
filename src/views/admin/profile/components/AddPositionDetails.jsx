@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-
+import { addPosOfRes } from "../../../../constants/api";
 const AddDetailsPopup = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     positionOfResponsibility: "",
-    title: "",
-    describePOR: "",
-    accomplishments: [],
-    certificateLink: "",
-    skillsUsed: [],
+    institute: "",
   });
 
   const handleChange = (e) => {
@@ -15,42 +11,64 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
     setDetails({ ...details, [name]: value });
   };
 
-  const handleAccomplishmentChange = (e, index) => {
-    const newAccomplishments = [...details.accomplishments];
-    newAccomplishments[index] = e.target.value;
-    setDetails({ ...details, accomplishments: newAccomplishments });
-  };
+  // const handleAccomplishmentChange = (e, index) => {
+  //   const newAccomplishments = [...details.accomplishments];
+  //   newAccomplishments[index] = e.target.value;
+  //   setDetails({ ...details, accomplishments: newAccomplishments });
+  // };
 
-  const handleAddAccomplishment = () => {
-    setDetails({
-      ...details,
-      accomplishments: [...details.accomplishments, ""],
-    });
-  };
+  // const handleAddAccomplishment = () => {
+  //   setDetails({
+  //     ...details,
+  //     accomplishments: [...details.accomplishments, ""],
+  //   });
+  // };
 
-  const handleRemoveAccomplishment = (index) => {
-    const newAccomplishments = [...details.accomplishments];
-    newAccomplishments.splice(index, 1);
-    setDetails({ ...details, accomplishments: newAccomplishments });
-  };
+  // const handleRemoveAccomplishment = (index) => {
+  //   const newAccomplishments = [...details.accomplishments];
+  //   newAccomplishments.splice(index, 1);
+  //   setDetails({ ...details, accomplishments: newAccomplishments });
+  // };
 
-  const handleSkillsChange = (e, index) => {
-    const newSkills = [...details.skillsUsed];
-    newSkills[index] = e.target.value;
-    setDetails({ ...details, skillsUsed: newSkills });
-  };
+  // const handleSkillsChange = (e, index) => {
+  //   const newSkills = [...details.skillsUsed];
+  //   newSkills[index] = e.target.value;
+  //   setDetails({ ...details, skillsUsed: newSkills });
+  // };
 
-  const handleAddSkill = () => {
-    setDetails({ ...details, skillsUsed: [...details.skillsUsed, ""] });
-  };
+  // const handleAddSkill = () => {
+  //   setDetails({ ...details, skillsUsed: [...details.skillsUsed, ""] });
+  // };
 
-  const handleRemoveSkill = (index) => {
-    const newSkills = [...details.skillsUsed];
-    newSkills.splice(index, 1);
-    setDetails({ ...details, skillsUsed: newSkills });
-  };
+  // const handleRemoveSkill = (index) => {
+  //   const newSkills = [...details.skillsUsed];
+  //   newSkills.splice(index, 1);
+  //   setDetails({ ...details, skillsUsed: newSkills });
+  // };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(addPosOfRes, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(details), // Send the details object as JSON string in the request body
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        // Assuming the API returns a JSON response with the newly added education details
+        const data = await response.json();
+        console.log(data);
+        // Pass the data to the onSave callback
+        onSave(data);
+      }
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+    }
     onSave(details);
     onClose();
   };
@@ -63,14 +81,14 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="title"
+              htmlFor="institute"
             >
-              Title:
+              Institute Name:
             </label>
             <input
               type="text"
-              name="title"
-              id="title"
+              name="institute"
+              id="institute"
               className="w-full rounded border px-4 py-2"
               onChange={handleChange}
             />
@@ -78,30 +96,14 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="describePOR"
+              htmlFor="positionOfResponsibility"
             >
               Describe your POR:
             </label>
             <input
               type="text"
-              name="describePOR"
-              id="describePOR"
-              className="w-full rounded border px-4 py-2"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="certificateLink"
-            >
-              Certificate Link:
-            </label>
-            <input
-              type="text"
-              name="certificateLink"
-              id="certificateLink"
+              name="positionOfResponsibility"
+              id="positionOfResponsibility"
               className="w-full rounded border px-4 py-2"
               onChange={handleChange}
             />
