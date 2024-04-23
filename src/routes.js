@@ -6,7 +6,7 @@ import CollaborationWorkspace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import CollabPost from "views/admin/collabpost";
 import CreateAccount from "views/auth/CreateAccount";
-import Profile2 from "views/admin/profile/profile2/index";
+import Profile2 from "views/admin/marketplace/components/ViewProfile";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";

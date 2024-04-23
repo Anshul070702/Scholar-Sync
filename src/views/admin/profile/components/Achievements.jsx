@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
-const Card = ({ logoUrl, title, description }) => {
+const Card = ({ title, description }) => {
   const [detailsList, setDetailsList] = useState([]);
   const [showInput, setShowInput] = useState(false);
   const [newDetails, setNewDetails] = useState({

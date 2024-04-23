@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { addPosOfRes } from "../../../../constants/api";
-const AddDetailsPopup = ({ onClose, onSave }) => {
+const AddPositionDetails = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     positionOfResponsibility: "",
     institute: "",
@@ -130,4 +130,4 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
   );
 };
 
-export default AddDetailsPopup;
+export default AddPositionDetails;

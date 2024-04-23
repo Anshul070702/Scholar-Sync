@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { format, differenceInWeeks } from "date-fns";
 import { FaRegBookmark } from "react-icons/fa";
-import { userAppliedOnJob } from "../../constants/api";
+import { userAppliedOnJob } from "../../../../constants/api";
 
 const CollabPost = ({ data }) => {
   const userID = data?._id;
@@ -17,7 +17,9 @@ const CollabPost = ({ data }) => {
     moreAboutJob,
     user,
   } = data;
-  const { collegeName, fullName } = user;
+
+  const fullName = user?.fullName;
+  const collegeName = user?.collegeName;
 
   // Function to open PDF file in a new window
   const openPDF = () => {
@@ -35,7 +37,6 @@ const CollabPost = ({ data }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        // body: JSON.stringify({ userID }),
       });
       if (response.ok) {
         const responseData = await response.json();
@@ -76,6 +77,7 @@ const CollabPost = ({ data }) => {
           </p>
           <span className="text-sm text-gray-500">|</span>
           <p className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+            {/* {console.log(collegeName)} */}
             {collegeName}
           </p>
         </div>

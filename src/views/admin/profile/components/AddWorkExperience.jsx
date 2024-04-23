@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addWorkExperience } from "../../../../constants/api";
 
-const AddDetailsPopup = ({ onClose, onSave }) => {
+const AddWorkExperience = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     companyName: "",
     certificateLink: "", // corrected field name
@@ -131,4 +131,4 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
   );
 };
 
-export default AddDetailsPopup;
+export default AddWorkExperience;

@@ -16,7 +16,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      sentenceIndexRef.current = (sentenceIndexRef.current + 1) % sentences.length;
+      sentenceIndexRef.current =
+        (sentenceIndexRef.current + 1) % sentences.length;
     }, 3000);
 
     return () => clearInterval(intervalId);
@@ -24,19 +25,21 @@ const Dashboard = () => {
 
   return (
     <div className="mt-4">
-      <h1 className="text-5xl bg-[#5f67ff] inline-block py-4 px-12 text-white rounded-tr-2xl rounded-br-2xl">Scholar Sync</h1>
-      <div className="center mt-4 text-4xl text-[#5f67ff] font-bold">
+      <h1 className="inline-block rounded-tr-2xl rounded-br-2xl bg-[#5f67ff] py-4 px-12 text-5xl text-white">
+        Scholar Sync
+      </h1>
+      <div className="center mt-4 text-4xl font-bold text-[#5f67ff] dark:text-white">
         <Typewriter
           options={{
             strings: sentences,
             autoStart: true,
             loop: true,
             deleteSpeed: 50,
-            delay: 100
+            delay: 100,
           }}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {cardData.map((data, index) => (
           <Card
             key={index}
@@ -46,7 +49,7 @@ const Dashboard = () => {
           />
         ))}
       </div>
-    </div >
+    </div>
   );
 };
 

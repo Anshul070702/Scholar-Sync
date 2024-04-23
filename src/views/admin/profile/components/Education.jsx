@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddDetailsPopup } from "./export";
+import { AddEducationDetails } from "./export";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 const Card = ({ logoUrl, title, description }) => {
@@ -51,7 +51,7 @@ const Card = ({ logoUrl, title, description }) => {
       </div>
       {/* Render popup if showPopup is true */}
       {showPopup && (
-        <AddDetailsPopup onClose={togglePopup} onSave={handleAddDetails} />
+        <AddEducationDetails onClose={togglePopup} onSave={handleAddDetails} />
       )}
     </div>
   );

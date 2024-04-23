@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputField from "components/fields/InputField";
 import { InstituteNames } from "../../constants/collabPostData";
 import { registerUser } from "constants/api";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,7 +30,15 @@ const CreateAccount = () => {
     const domain = e.target[8].value;
 
     // Perform form validation
-    if (!role || !fullName || !collegeName || !email || !phoneNumber || !password || !domain) {
+    if (
+      !role ||
+      !fullName ||
+      !collegeName ||
+      !email ||
+      !phoneNumber ||
+      !password ||
+      !domain
+    ) {
       toast.error("Please enter all required details.");
       return;
     }
@@ -58,8 +66,10 @@ const CreateAccount = () => {
         console.log(responseData);
         localStorage.setItem("token", responseData.data.accessToken);
         localStorage.setItem("userData", JSON.stringify(responseData));
-        toast.success("Your account has been created successfully.");
-        navigate(-1);
+        toast.success("Your account has been created successfully! ");
+        toast.success("Please verify your email to Login", {
+          onClose: () => navigate("/auth"), // Navigate to "/auth" after toast is closed
+        });
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);

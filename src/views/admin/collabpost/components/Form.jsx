@@ -5,10 +5,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
+  const userData = localStorage.getItem("userData");
+  
   // State variables
   const [researchName, setResearchName] = useState("");
-  const [professorName, setProfessorName] = useState("");
-  const [instituteName, setInstituteName] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [newTopic, setNewTopic] = useState("");
   const [role, setRole] = useState("");
@@ -22,15 +22,15 @@ const Form = () => {
   const handleSubmitAPI = async () => {
     const data = {
       titleOfJob: researchName,
-      professor: professorName,
-      institute: instituteName,
+      professor: JSON.parse(userData)?.data?.User?.fullName,
+      institute: JSON.parse(userData)?.data?.User?.collegeName,
       domain: selectedTopics,
       isRemote: role === "remote",
       isOnSite: role === "onsite",
       stipend: stipend,
       durationInMonths: duration,
       lastDate: applyBy,
-      detailsLink: fileLink
+      detailsLink: fileLink,
     };
 
     try {
@@ -39,16 +39,14 @@ const Form = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {
-        const responseData = await response.json();
-        localStorage.setItem("userData", JSON.stringify(responseData));
         return true;
       }
     } catch (error) {
@@ -56,7 +54,6 @@ const Form = () => {
       return false;
     }
   };
-
 
   const handleTopicInputChange = (event) => {
     setNewTopic(event.target.value);
@@ -79,13 +76,10 @@ const Form = () => {
     setRole(e.target.value);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !researchName ||
-      !professorName ||
-      !instituteName ||
       selectedTopics.length === 0 ||
       !stipend ||
       !duration ||
@@ -98,8 +92,6 @@ const Form = () => {
       if (success) {
         toast.success("Your collab post has been created successfully.");
         setResearchName("");
-        setProfessorName("");
-        setInstituteName("");
         setSelectedTopics([]);
         setNewTopic("");
         setRole("");
@@ -120,6 +112,26 @@ const Form = () => {
         Enter details for your Post
       </h2>
 
+      {/* Professor Name */}
+      <div className="mb-4">
+        <label className="mb-2 block">
+          Your Name <span className="text-red-500">*</span>
+        </label>
+        <div className="text-bold block w-full rounded-md border-gray-300 bg-white px-3 py-2 text-navy-500 dark:bg-gray-300">
+          {JSON.parse(userData)?.data?.User?.fullName}
+        </div>
+      </div>
+
+      {/* Institute Name */}
+      <div className="mb-4">
+        <label className="mb-2 block">
+          Institute Name <span className="text-red-500">*</span>
+        </label>
+        <div className="text-bold block w-full rounded-md border-gray-300 bg-white px-3 py-2 text-navy-500 dark:bg-gray-300">
+          {JSON.parse(userData)?.data?.User?.collegeName}
+        </div>
+      </div>
+
       {/* Research Title */}
       <div className="mb-4">
         <label className="mb-2 block">
@@ -129,30 +141,6 @@ const Form = () => {
           type="text"
           value={researchName}
           onChange={(e) => setResearchName(e.target.value)}
-          className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
-        />
-      </div>
-
-      {/* Professor Name */}
-      <div className="mb-4">
-        <label className="mb-2 block">
-          Professor Name <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          value={professorName}
-          onChange={(e) => setProfessorName(e.target.value)}
-          className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="mb-2 block">
-          Institute Name <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          value={instituteName}
-          onChange={(e) => setInstituteName(e.target.value)}
           className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
         />
       </div>

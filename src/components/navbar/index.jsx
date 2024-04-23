@@ -11,12 +11,20 @@ import { FiSearch } from "react-icons/fi";
 import { getNotification } from "../../constants/api";
 
 const Navbar = (props) => {
-  const [APIdata, setData] = useState([]);
+  const [APIdata, setAPIdata] = useState([]);
+  const [logIn, setLogin] = useState(false);
+  const navigate = useNavigate();
+
+  const userData = localStorage.getItem("userData");
+  if (userData && !logIn) {
+    setLogin(true);
+  }
+
   useEffect(() => {
-    handle();
+    handleGetNotification();
   }, []);
 
-  const handle = async () => {
+  const handleGetNotification = async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(getNotification, {
@@ -28,23 +36,28 @@ const Navbar = (props) => {
       });
       if (!response.ok) {
         throw new Error("Network response was not ok");
-      } else {
-        const data = await response.json();
-        setData(data.message);
       }
+      const data = await response.json();
+      console.log(data);
+      setAPIdata(data.message);
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
   };
 
   const { onOpenSidenav, brandText } = props;
-  const [darkmode, setDarkmode] = React.useState(false);
-  const navigate = useNavigate();
+  const [darkmode, setDarkmode] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
-    navigate("/");
+    if (!logIn) {
+      setLogin(!logIn);
+      navigate("/auth"); // Navigate to "/auth" when logIn is false
+    } else {
+      setLogin(!logIn);
+      localStorage.removeItem("token");
+      localStorage.removeItem("userData");
+      navigate("/");
+    }
   };
 
   return (
@@ -111,17 +124,18 @@ const Navbar = (props) => {
                     Notifications
                   </p>
                 </div>
-                {APIdata.map((data, index) => (
-                  <div
-                    className="mb-2 flex items-center justify-between rounded-md bg-blue-100 p-3 text-blue-800 dark:bg-blue-800 dark:text-white"
-                    key={index}
-                  >
-                    <div className="flex items-center">
-                      <BsArrowBarUp className="text-gray-400 dark:text-white" />
-                      <p className="ml-2 text-sm font-bold">{data.message}</p>
+                {APIdata.length !== 0 &&
+                  APIdata.map((data, index) => (
+                    <div
+                      className="mb-2 flex items-center justify-between rounded-md bg-blue-100 p-3 text-blue-800 dark:bg-blue-800 dark:text-white"
+                      key={index}
+                    >
+                      <div className="flex items-center">
+                        <BsArrowBarUp className="text-gray-400 dark:text-white" />
+                        <p className="ml-2 text-sm font-bold">{data.message}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           }
@@ -157,7 +171,9 @@ const Navbar = (props) => {
           children={
             <div className="flex w-56 flex-col items-center rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
               <div className="flex items-center p-4 text-center text-lg font-bold text-navy-700 dark:text-white">
-                GravitY
+                {userData
+                  ? JSON.parse(userData)?.data?.User?.fullName
+                  : "Gravity"}
               </div>
               <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
               <div className="flex flex-col p-4">
@@ -165,7 +181,7 @@ const Navbar = (props) => {
                   className="text-base font-medium text-red-500 transition duration-150 ease-out hover:text-red-500 hover:ease-in"
                   onClick={handleLogout}
                 >
-                  LogOut
+                  {logIn ? "LogOut" : "LogIn"}
                 </button>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addEducation } from "../../../../constants/api";
 
-const AddDetailsPopup = ({ onClose, onSave }) => {
+const AddEducationdetails = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     university: "",
     degree: "",
@@ -164,4 +164,4 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
   );
 };
 
-export default AddDetailsPopup;
+export default AddEducationdetails;

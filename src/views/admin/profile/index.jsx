@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 import {
-  AddCertificateDetails,
-  AddDetailsPopup,
-  AddPositionDetail,
-  AddProjectDetails,
-  AddWorkExperience,
   Certifications,
   Education,
   Position,
@@ -86,7 +81,7 @@ const Card = () => {
           <div className=" justify-end">
             {/* Header and buttons */}
             <div className="flex items-center ">
-              <div className="text-black mr-4 h-16 w-16 overflow-hidden rounded-full bg-gray-300">
+              <div className="text-black mr-4 mt-4 h-32 w-32 overflow-hidden rounded-full bg-gray-300">
                 <img
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
                   alt=""
@@ -95,17 +90,29 @@ const Card = () => {
               </div>
 
               <div>
-                <h2 className="text-lg font-semibold">Person's Name</h2>
-                <p className="text-sm">Role</p>
-                <p className="text-sm">Education Detail</p>
+                <h2 className="text-lg font-semibold">
+                  {
+                    JSON.parse(localStorage.getItem("userData"))?.data?.User
+                      ?.fullName
+                  }
+                </h2>
+                <p className="text-sm">
+                  {
+                    JSON.parse(localStorage.getItem("userData"))?.data?.User
+                      ?.collegeName
+                  }
+                </p>
+                <p className="text-sm">
+                  {
+                    JSON.parse(localStorage.getItem("userData"))?.data?.User
+                      ?.role
+                  }
+                </p>
               </div>
             </div>
-            <div className="mt-4 flex justify-end">
+            <div className=" flex justify-end">
               <button className="mx-2 rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none">
                 Edit
-              </button>
-              <button className="mx-2 rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none">
-                Your Resume
               </button>
             </div>
           </div>

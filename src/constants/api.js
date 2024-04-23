@@ -1,6 +1,7 @@
 //  Host
+// const host = "http://172.20.10.5:8000";
 const host = "https://scholar-sync-backend-3.onrender.com";
-// const host = "https://scholar-sync-backend-3.onrender.com";
+// https://scholar-sync-backend-3.onrender.com/api/v1/job/uploadOpenings
 
 // User APIs
 const user = `${host}/api/v1/user`;

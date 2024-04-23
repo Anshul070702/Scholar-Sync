@@ -22,10 +22,6 @@ const ProfileComponent = ({ id, name }) => {
     },
   ];
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     const token = localStorage.getItem("token");
 
@@ -42,11 +38,15 @@ const ProfileComponent = ({ id, name }) => {
       }
       const data = await response.json();
       setData(data);
-      console.log("data", data);
+      // console.log("data", data);
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  });
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -63,7 +63,7 @@ const ProfileComponent = ({ id, name }) => {
             className="mr-4 h-16 w-16 rounded-full"
           />
           <div className="ml-5">
-            <p className="text-lg font-semibold">{name}</p>
+            {/* <p className="text-lg font-semibold">{name}</p> */}
             <p className="text-sm text-gray-600">
               {data?.message?.education[0]?.university}
             </p>

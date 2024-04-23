@@ -1,5 +1,5 @@
 import AddCertificateDetails from "./AddCertificateDetails";
-import AddDetailsPopup from "./AddDetailsPopUp";
+import AddEducationDetails from "./AddEducationDetails";
 import AddPositionDetails from "./AddPositionDetails";
 import AddProjectDetails from "./AddProjectDetails";
 import AddWorkExperience from "./AddWorkExperience";
@@ -12,7 +12,7 @@ import WorkExperience from "./WorkExperience";
 
 export {
   AddCertificateDetails,
-  AddDetailsPopup,
+  AddEducationDetails,
   AddPositionDetails,
   AddProjectDetails,
   AddWorkExperience,

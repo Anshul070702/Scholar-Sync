@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addProject } from "../../../../constants/api";
 
-const AddDetailsPopup = ({ onClose, onSave }) => {
+const AddProjectDetails = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     projectTitle: "",
     description: "", // Changed to a single string
@@ -125,4 +125,4 @@ const AddDetailsPopup = ({ onClose, onSave }) => {
   );
 };
 
-export default AddDetailsPopup;
+export default AddProjectDetails;

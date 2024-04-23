@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Banner from "./components/Banner";
-import CollabPostCard from "components/card/CollabPost";
+import CollabPostCard from "./components/CollabPostCard";
 import ShimmerCard from "./components/Shimmer";
-import Profile2 from "../profile/profile2/index";
+import Profile2 from "./components/ViewProfile";
 import TopCreators from "./components/TopCreators";
 import HistoryCard from "./components/HistoryCard";
 import { getAllJobPost, getJobsOfSameCollege } from "../../../constants/api";
@@ -16,12 +16,11 @@ const Marketplace = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    console.log("recieved left id is" + leftSide);
+    // console.log("recieved left id is" + leftSide);
   }, [leftSide, setLeftSide]);
 
   const RenderLeftSide = () => {
     if (leftSide !== "left") {
-      // console.log(leftSide, "is left");
       return <Profile2 id={leftSide} name={name} />;
     } else
       return (
@@ -48,7 +47,11 @@ const Marketplace = () => {
           </div>
           <div className="flex-start mb-4 mt-5 flex justify-between px-4 md:flex-row md:items-center">
             <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
-              Openings at IIIT Pune
+              Openings at{" "}
+              {
+                JSON.parse(localStorage.getItem("userData"))?.data?.User
+                  ?.collegeName
+              }
             </h4>
           </div>
           <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-1">
@@ -112,8 +115,7 @@ const Marketplace = () => {
       {/* Right side section */}
       <div className="col-span-1 h-full overflow-y-auto rounded-xl 2xl:col-span-1">
         {/* Pass setLeftSide as a prop to TopCreators */}
-        <TopCreators setLeftSide={setLeftSide} 
-        setName={setName}/>
+        <TopCreators setLeftSide={setLeftSide} setName={setName} />
 
         {/* HistoryCard */}
         <HistoryCard />
