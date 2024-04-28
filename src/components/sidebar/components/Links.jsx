@@ -1,16 +1,15 @@
 /* eslint-disable */
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import DashIcon from "components/icons/DashIcon";
 
-// chakra imports
-
 function SidebarLinks(props) {
-  // Chakra color mode
   let location = useLocation();
-
   const { routes } = props;
 
+  const isStudent = JSON.parse(
+    JSON.parse(localStorage.getItem("userData"))?.data?.User?.role === "student"
+  );
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return location.pathname.includes(routeName);
@@ -95,7 +94,8 @@ function SidebarLinks(props) {
           (route.layout === "/admin" || route.layout === "/auth") &&
           index !== routes.length - 1 &&
           index !== routes.length - 2 &&
-          index !== routes.length - 3
+          index !== routes.length - 3 &&
+          !(isStudent && index === 2)
         ) {
           return (
             <Link key={index} to={route.layout + "/" + route.path}>

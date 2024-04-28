@@ -18,8 +18,8 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 // Icon Imports
 import { MdHome, MdPerson, MdLock, MdChat } from "react-icons/md";
 import { FaHandshake } from "react-icons/fa";
+import ChatApp from "./views/admin/chat/ChatApp.jsx";
 
-/* */
 const routes = [
   {
     name: "Home",
@@ -56,7 +56,7 @@ const routes = [
     layout: "/admin",
     path: "chat",
     icon: <MdChat className="h-6 w-6" />,
-    component: <Profile />,
+    component: <ChatApp />,
   },
   {
     name: "Sign In",

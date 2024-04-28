@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { TopicNames } from "../../../../constants/collabPostData";
 import { uploadOpenings } from "../../../../constants/api";
 import { toast, ToastContainer } from "react-toastify";
@@ -6,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
   const userData = localStorage.getItem("userData");
-  
+
   // State variables
   const [researchName, setResearchName] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
@@ -20,6 +21,7 @@ const Form = () => {
 
   // API Call
   const handleSubmitAPI = async () => {
+    // e.preventDefault();
     const data = {
       titleOfJob: researchName,
       professor: JSON.parse(userData)?.data?.User?.fullName,
@@ -32,19 +34,21 @@ const Form = () => {
       lastDate: applyBy,
       detailsLink: fileLink,
     };
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(uploadOpenings, {
-        method: "POST",
+      const response = await axios.post(uploadOpenings, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
       });
-
-      if (!response.ok) {
+      console.log(response);
+      if (response.statusText !== "OK") {
         throw new Error("Network response was not ok");
       } else {
         return true;
@@ -259,9 +263,12 @@ const Form = () => {
           Details <span className="text-red-500">*</span>
         </label>
         <input
-          type="text"
-          value={fileLink}
-          onChange={(e) => setFileLink(e.target.value)}
+          type="file"
+          // value={fileLink}
+          onChange={(e) => {
+            setFileLink(e.target.files[0]);
+            console.log(e.target.files[0]);
+          }}
           className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
           placeholder="Enter drive link"
         />

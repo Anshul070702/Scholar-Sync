@@ -4,7 +4,6 @@ import routes from "routes.js";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 
 export default function Auth() {
-
   // Get Routes
   const location = useLocation();
   const getRoutes = (routes) => {

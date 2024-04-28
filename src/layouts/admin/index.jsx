@@ -47,7 +47,6 @@ export default function Admin(props) {
     return activeNavbar;
   };
 
-
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -59,7 +58,6 @@ export default function Admin(props) {
       }
     });
   };
-
 
   // document.documentElement.dir = "ltr";
   return (
@@ -80,7 +78,7 @@ export default function Admin(props) {
               secondary={getActiveNavbar(routes)}
               {...rest}
             />
-            
+
             <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}

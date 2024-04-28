@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { uploadProfilePicture } from "../../../constants/api";
 import {
   Certifications,
   Education,
@@ -9,8 +11,30 @@ import {
 } from "./components/export";
 
 const Card = () => {
-  const [selectedSection, setSelectedSection] = useState("Education");
+  const [image, setImage] = useState(null);
 
+  // Function to handle image upload
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(uploadProfilePicture, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Handle response, maybe update state with the image URL
+      console.log("Image uploaded successfully:", response.data);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const [selectedSection, setSelectedSection] = useState("Education");
   const renderSelectedSection = () => {
     switch (selectedSection) {
       case "Education":
@@ -81,14 +105,28 @@ const Card = () => {
           <div className=" justify-end">
             {/* Header and buttons */}
             <div className="flex items-center ">
-              <div className="text-black mr-4 mt-4 h-32 w-32 overflow-hidden rounded-full bg-gray-300">
-                <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
+              <div className="text-black relative mr-4 mt-4 h-32 w-32 overflow-hidden rounded-full bg-gray-300">
+                {image ? (
+                  <img
+                    src={image}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <label htmlFor="upload-input" className="cursor-pointer">
+                      Click to upload
+                      <input
+                        id="upload-input"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleImageUpload}
+                      />
+                    </label>
+                  </div>
+                )}
               </div>
-
               <div>
                 <h2 className="text-lg font-semibold">
                   {
