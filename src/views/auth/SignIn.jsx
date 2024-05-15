@@ -4,6 +4,8 @@ import Checkbox from "components/checkbox";
 import { Link } from "react-router-dom";
 import { login } from "../../constants/api";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -22,13 +24,12 @@ export default function SignIn() {
         },
         body: JSON.stringify(data),
       });
-
+      const responseData = await response.json();
+      console.log(responseData);
       if (!response.ok) {
+        toast.error(responseData?.data);
         throw new Error("Network response was not ok");
       } else {
-        const responseData = await response.json();
-        // Store the token in local storage
-        console.log(responseData);
         localStorage.setItem("token", responseData.data.accessToken);
         localStorage.setItem("userData", JSON.stringify(responseData));
         navigate("/");
@@ -119,6 +120,12 @@ export default function SignIn() {
           </div>
         </div>
       </div>
+      {/* Toast Properties */}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        closeButton={false}
+      />
     </form>
   );
 }

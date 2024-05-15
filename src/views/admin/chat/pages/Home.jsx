@@ -57,7 +57,7 @@ const Home = () => {
       value={{ messages, setMessages, clicked, setClicked }}
     >
       <div className="flex h-screen items-center justify-center bg-white">
-        <div className="flex h-[90%] w-4/5 rounded-md ">
+        <div className="flex h-[80%] w-4/5 rounded-md ">
           <SideBar />
           <Chat />
         </div>

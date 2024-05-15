@@ -31,7 +31,7 @@ const ChatMenu = ({ userName }) => {
     loadChat();
   }, []);
   return (
-    <div className="max-h-96 overflow-y-auto">
+    <div className="max-h-80 overflow-y-auto">
       {userName === ""
         ? friends.map((friend) => (
             <div key={friend._id}>

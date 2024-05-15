@@ -164,7 +164,11 @@ const Navbar = (props) => {
           button={
             <img
               className="h-10 w-10 rounded-full"
-              src={avatar}
+              src={
+                !JSON.parse(userData)?.data?.User?.profilePicture
+                  ? avatar
+                  : JSON.parse(userData)?.data?.User?.profilePicture
+              }
               alt="Elon Musk"
             />
           }

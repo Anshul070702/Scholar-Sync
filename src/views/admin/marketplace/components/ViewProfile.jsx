@@ -37,6 +37,7 @@ const ProfileComponent = ({ id, name }) => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log("profileView Data", data);
       setData(data);
       // console.log("data", data);
     } catch (error) {
@@ -46,7 +47,7 @@ const ProfileComponent = ({ id, name }) => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -100,6 +101,7 @@ const ProfileComponent = ({ id, name }) => {
 };
 
 const ProfileDetails = ({ data }) => {
+  // console.log("user profile data", data);
   return (
     <div>
       <p className="mb-2 text-lg font-semibold">Profile Details</p>

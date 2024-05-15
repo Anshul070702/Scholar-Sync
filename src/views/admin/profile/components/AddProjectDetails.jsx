@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { addProject } from "../../../../constants/api";
 
-const AddProjectDetails = ({ onClose, onSave }) => {
+const AddProjectDetails = ({ onClose }) => {
   const [details, setDetails] = useState({
     projectTitle: "",
-    description: "", // Changed to a single string
+    description: "",
     projectLink: "",
-    skillsUsed: "", // Changed to a single string
+    skills: "",
   });
 
   const handleChange = (e) => {
@@ -28,26 +28,26 @@ const AddProjectDetails = ({ onClose, onSave }) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {
-        const data = await response.json();
-        console.log(data);
-        onSave(data);
+        console.log("response was not Ok");
+        // onSave(data);
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
-    onSave(details);
+    // onSave(details);
     onClose();
   };
 
   return (
     <div className="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="w-auto rounded-lg bg-white p-6 sm:w-[800px]">
-        <h2 className="mb-4 text-lg font-semibold">Add New Details</h2>
+        <h2 className="mb-4 text-lg font-semibold">Add New Project Details</h2>
 
+        {/* Form fields */}
         <div className="mb-4">
           <label
-            className="mb-2 block text-sm font-bold text-gray-700"
             htmlFor="projectTitle"
+            className="mb-2 block text-sm font-bold text-gray-700"
           >
             Project Title:
           </label>
@@ -55,14 +55,15 @@ const AddProjectDetails = ({ onClose, onSave }) => {
             type="text"
             name="projectTitle"
             id="projectTitle"
-            className="w-full rounded border px-4 py-2"
+            value={details.projectTitle}
             onChange={handleChange}
+            className="w-full rounded border px-4 py-2"
           />
         </div>
         <div className="mb-4">
           <label
-            className="mb-2 block text-sm font-bold text-gray-700"
             htmlFor="description"
+            className="mb-2 block text-sm font-bold text-gray-700"
           >
             Description:
           </label>
@@ -70,14 +71,15 @@ const AddProjectDetails = ({ onClose, onSave }) => {
             type="text"
             name="description"
             id="description"
-            className="w-full rounded border px-4 py-2"
+            value={details.description}
             onChange={handleChange}
+            className="w-full rounded border px-4 py-2"
           />
         </div>
         <div className="mb-4">
           <label
-            className="mb-2 block text-sm font-bold text-gray-700"
             htmlFor="projectLink"
+            className="mb-2 block text-sm font-bold text-gray-700"
           >
             Project Link:
           </label>
@@ -85,25 +87,29 @@ const AddProjectDetails = ({ onClose, onSave }) => {
             type="text"
             name="projectLink"
             id="projectLink"
-            className="w-full rounded border px-4 py-2"
+            value={details.projectLink}
             onChange={handleChange}
+            className="w-full rounded border px-4 py-2"
           />
         </div>
         <div className="mb-4">
           <label
+            htmlFor="skills"
             className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="skillsUsed"
           >
             Skills Used:
           </label>
           <input
             type="text"
-            name="skillsUsed"
-            id="skillsUsed"
-            className="w-full rounded border px-4 py-2"
+            name="skills"
+            id="skills"
+            value={details.skills}
             onChange={handleChange}
+            className="w-full rounded border px-4 py-2"
           />
         </div>
+
+        {/* Buttons */}
         <div className="flex justify-end">
           <button
             type="button"

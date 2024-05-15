@@ -1,5 +1,5 @@
 import johncena from "../assets/johncena.jpeg";
-import { useContext} from "react";
+import { useContext } from "react";
 import MessageContex from "../context/MessageContext";
 import { Socketcontext } from "../context/SocketContext";
 import { getOneUserConversation } from "../utils/chatApi";
@@ -39,14 +39,13 @@ const User = ({ fullname, id }) => {
   };
   return (
     <div
-      className="h-18 transform flex-col shadow-md transition duration-300 ease-in-out hover:bg-gray-200"
+      className="h-16 py-2 transform flex-col shadow-md transition duration-300 ease-in-out hover:bg-gray-200"
       onClick={handleClick}
     >
-      <div className="flex items-center p-2">
-        <img src={johncena} alt="profile pic" className="h-8 w-8 rounded" />
-        <p className="px-4">{fullname}</p>
+      <div className="flex items-center px-2">
+        <img src={johncena} alt="profile pic" className="h-10 w-10 rounded-full " />
+        <p className="px-4 font-semibold">{fullname}</p>
       </div>
-      <p className="pl-4">Latest Message</p>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useRef } from "react";
 import Typewriter from "typewriter-effect";
 import cardData from "./components/cardData";
+import PaperSearch from "./components/PaperSearch";
 import Card from "./components/Card";
 
 const Dashboard = () => {
@@ -48,6 +49,9 @@ const Dashboard = () => {
             text={data.text}
           />
         ))}
+      </div>
+      <div className=" mt-4">
+        <PaperSearch />
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { useState } from "react";
 const SideBar = () => {
   const [userName, setUserName] = useState("");
   return (
-    <div className="rounded-bl-md2 w-4/12 rounded-tl-md bg-blue-50">
+    <div className="rounded-bl-md w-5/12 rounded-tl-md bg-blue-50">
       <NavBar />
       <SearchBar setUserName={setUserName} />
       <ChatMenu userName={userName} />

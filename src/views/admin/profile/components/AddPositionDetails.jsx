@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addPosOfRes } from "../../../../constants/api";
+
 const AddPositionDetails = ({ onClose, onSave }) => {
   const [details, setDetails] = useState({
     positionOfResponsibility: "",
@@ -11,41 +12,6 @@ const AddPositionDetails = ({ onClose, onSave }) => {
     setDetails({ ...details, [name]: value });
   };
 
-  // const handleAccomplishmentChange = (e, index) => {
-  //   const newAccomplishments = [...details.accomplishments];
-  //   newAccomplishments[index] = e.target.value;
-  //   setDetails({ ...details, accomplishments: newAccomplishments });
-  // };
-
-  // const handleAddAccomplishment = () => {
-  //   setDetails({
-  //     ...details,
-  //     accomplishments: [...details.accomplishments, ""],
-  //   });
-  // };
-
-  // const handleRemoveAccomplishment = (index) => {
-  //   const newAccomplishments = [...details.accomplishments];
-  //   newAccomplishments.splice(index, 1);
-  //   setDetails({ ...details, accomplishments: newAccomplishments });
-  // };
-
-  // const handleSkillsChange = (e, index) => {
-  //   const newSkills = [...details.skillsUsed];
-  //   newSkills[index] = e.target.value;
-  //   setDetails({ ...details, skillsUsed: newSkills });
-  // };
-
-  // const handleAddSkill = () => {
-  //   setDetails({ ...details, skillsUsed: [...details.skillsUsed, ""] });
-  // };
-
-  // const handleRemoveSkill = (index) => {
-  //   const newSkills = [...details.skillsUsed];
-  //   newSkills.splice(index, 1);
-  //   setDetails({ ...details, skillsUsed: newSkills });
-  // };
-
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -55,21 +21,18 @@ const AddPositionDetails = ({ onClose, onSave }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(details), // Send the details object as JSON string in the request body
+        body: JSON.stringify(details),
       });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {
-        // Assuming the API returns a JSON response with the newly added education details
-        const data = await response.json();
-        console.log(data);
-        // Pass the data to the onSave callback
-        onSave(data);
+        // const data = await response.json();
+        // onSave(data);
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
-    onSave(details);
+    // onSave(details);
     onClose();
   };
 

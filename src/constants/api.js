@@ -1,8 +1,9 @@
 //  Host
-// export const host = "http://192.168.53.223:8000";
-export const host = "http://172.20.10.5:8000";
-// export const host = "https://scholar-sync-backend-3.onrender.com";
-// https://scholar-sync-backend-3.onrender.com/api/v1/job/uploadOpenings
+// export const host = "http://192.168.26.43:8000";
+// export const host = "http://172.20.10.5:8000";
+// Backend deployed API
+export const host = "https://scholar-sync-backend-3.onrender.com";
+// https://scholar-sync-backend-3.onrender.com/
 
 // User APIs
 const user = `${host}/api/v1/user`;
@@ -30,6 +31,7 @@ export const addSkill = `${profile}/addSkill`;
 export const addWorkExperience = `${profile}/addWorkExperience`;
 export const viewProfile = `${profile}/viewProfile/`;
 export const getNotification = `${profile}/getNotification`;
+export const getProfileDetail = `${profile}/getProfileDetail`;
 
 // Delete APIs
 export const deleteCertificate = `${profile}/deleteCerticate/`;
@@ -38,3 +40,6 @@ export const deletePosOfRes = `${profile}/deletePosOfRes/`;
 export const deleteEducation = `${profile}/deleteEducation/`;
 export const deleteWorkExperience = `${profile}/deleteWorkExperience/`;
 export const deleteSkill = `${profile}/deleteSkill/`;
+
+// Research Paper API
+export const paper = `${host}/api/v1/machineLearning/getResearchPaper`;

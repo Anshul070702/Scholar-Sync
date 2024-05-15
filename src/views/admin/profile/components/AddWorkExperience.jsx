@@ -32,12 +32,12 @@ const AddWorkExperience = ({ onClose, onSave }) => {
         const data = await response.json();
         console.log(data);
         // Pass the data to the onSave callback
-        onSave(data);
+        // onSave(data);
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
-    onSave(details); // This line seems redundant, but I'll keep it as it is in your original code
+    // onSave(details); // This line seems redundant, but I'll keep it as it is in your original code
     onClose();
   };
 

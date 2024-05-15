@@ -110,6 +110,7 @@ const CollabPost = ({ data }) => {
             Stipend
           </p>
           <p className="text-center text-xl text-gray-800 dark:text-gray-300">
+            <span>&#8377; </span>
             {stipend}
           </p>
         </div>

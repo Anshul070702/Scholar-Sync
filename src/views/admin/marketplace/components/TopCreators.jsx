@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "components/card";
 import { getUserOfSameCollege } from "../../../../constants/api";
+import avatar4 from "../../../../assets/img/avatars/avatar4.png";
 
 const TopCreators = ({ setLeftSide, setName }) => {
   const [APIdata, setData] = useState([]);
@@ -42,7 +43,10 @@ const TopCreators = ({ setLeftSide, setName }) => {
       {/* Top Creator Header */}
       <div className="flex h-fit w-full items-center justify-between overflow-y-auto rounded-t-2xl bg-white px-4 pt-4 pb-[20px] shadow-2xl shadow-gray-100 dark:!bg-navy-700 dark:shadow-none">
         <h4 className="text-lg font-bold text-navy-700 dark:text-white">
-          Indian Institute of Information Technology, Pune
+          {
+            JSON.parse(localStorage.getItem("userData"))?.data?.User
+              ?.collegeName
+          }
         </h4>
         <button className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20">
           Select
@@ -61,7 +65,7 @@ const TopCreators = ({ setLeftSide, setName }) => {
               <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
                 <img
                   className="h-full w-full object-cover"
-                  src={data.profilePicture}
+                  src={data.profilePicture ? data.profilePicture : avatar4}
                   alt=""
                 />
               </div>
@@ -70,7 +74,7 @@ const TopCreators = ({ setLeftSide, setName }) => {
                   {data.fullName}
                 </h4>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  CSE
+                  {data.role.toUpperCase()}
                 </p>
               </div>
             </div>

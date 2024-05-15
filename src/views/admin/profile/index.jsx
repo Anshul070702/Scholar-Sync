@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { uploadProfilePicture } from "../../../constants/api";
+import { uploadProfilePicture, getProfileDetail } from "../../../constants/api";
 import {
   Certifications,
   Education,
@@ -11,11 +11,47 @@ import {
 } from "./components/export";
 
 const Card = () => {
-  const [image, setImage] = useState(null);
+  // API call to get Profile Data
+  const [profileData, setProfileData] = useState("");
+  useEffect(() => {
+    showDetailsAPI();
+  }, []);
+  const showDetailsAPI = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(getProfileDetail, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+        setProfileData(responseData);
+        // console.log("hello", responseData);
+      } else {
+        console.log("rsponse was not okay");
+      }
+    } catch (error) {
+      throw new error("There was a problem fetching profile");
+    }
+  };
+  const userData = localStorage.getItem("userData");
 
-  // Function to handle image upload
+  // Allowing Edit
+  const [edit, setEdit] = useState(false);
+  const handleEdit = () => {
+    setEdit(!edit);
+  };
+
+  // Handle image upload
+  const [image, setImage] = useState(
+    JSON.parse(userData)?.data?.User?.profilePicture
+  );
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+    console.log("file", file);
     setImage(file);
     const formData = new FormData();
     formData.append("profilePicture", file);
@@ -42,6 +78,12 @@ const Card = () => {
           <Education
             title={"Add Education detail"}
             description={"Your school / college details"}
+            allowEdit={edit}
+            data={
+              profileData?.message?.education
+                ? profileData?.message?.education
+                : ""
+            }
           />
         );
       case "Projects":
@@ -49,6 +91,10 @@ const Card = () => {
           <Projects
             title={"Add project details"}
             description={"Projects that you have worked on before"}
+            allowEdit={edit}
+            data={
+              profileData?.message?.project ? profileData?.message?.project : ""
+            }
           />
         );
       case "Position":
@@ -58,6 +104,12 @@ const Card = () => {
             description={
               "Add any PORs like college clubs, social service, community head, fest organized, etc."
             }
+            allowEdit={edit}
+            data={
+              profileData?.message?.positionOfResponsibility
+                ? profileData?.message?.positionOfResponsibility
+                : ""
+            }
           />
         );
       case "Work Experience":
@@ -65,6 +117,12 @@ const Card = () => {
           <WorkExperience
             title={"Add work Experience"}
             description={"Your previous internship / full time experiences"}
+            allowEdit={edit}
+            data={
+              profileData?.message?.workExperience
+                ? profileData?.message?.workExperience
+                : ""
+            }
           />
         );
       case "Skill":
@@ -74,6 +132,10 @@ const Card = () => {
             description={
               "Add your Skill of Hackathons, NGO services, Exam ranks, Clubs, etc."
             }
+            allowEdit={edit}
+            data={
+              profileData?.message?.skills ? profileData?.message?.skills : ""
+            }
           />
         );
       case "Certifications":
@@ -81,6 +143,12 @@ const Card = () => {
           <Certifications
             title={"Add Certificate/Course Details"}
             description={"All Certifications/Courses you have done"}
+            allowEdit={edit}
+            data={
+              profileData?.message?.certificate
+                ? profileData?.message?.certificate
+                : ""
+            }
           />
         );
       default:
@@ -105,7 +173,7 @@ const Card = () => {
           <div className=" justify-end">
             {/* Header and buttons */}
             <div className="flex items-center ">
-              <div className="text-black relative mr-4 mt-4 h-32 w-32 overflow-hidden rounded-full bg-gray-300">
+              <div className="text-black relative mr-4 mt-4 h-40 w-40 overflow-hidden rounded-full bg-gray-300">
                 {image ? (
                   <img
                     src={image}
@@ -149,8 +217,11 @@ const Card = () => {
               </div>
             </div>
             <div className=" flex justify-end">
-              <button className="mx-2 rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none">
-                Edit
+              <button
+                className="mx-2 rounded bg-blue-700 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
+                onClick={handleEdit}
+              >
+                {edit ? "Save" : "Edit"}
               </button>
             </div>
           </div>

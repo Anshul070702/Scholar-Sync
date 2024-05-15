@@ -84,6 +84,7 @@ const Marketplace = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response1);
       const response2 = await fetch(getJobsOfSameCollege, {
         method: "POST",
         headers: {

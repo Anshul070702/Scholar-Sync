@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { addCertificate } from "../../../../constants/api";
 
-const AddCertificateDetails = ({ onClose, onSave }) => {
+const AddCertificateDetails = ({ onClose }) => {
   const [details, setDetails] = useState({
-    projectTitle: "",
-    description: "", // Changed to a single string
-    projectLink: "",
+    title: "",
+    description: "",
+    certificateLink: "",
   });
 
   const handleChange = (e) => {
@@ -29,12 +29,12 @@ const AddCertificateDetails = ({ onClose, onSave }) => {
       } else {
         const data = await response.json();
         console.log(data);
-        onSave(data);
+        // onSave(data);
       }
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
-    onSave(details);
+    // onSave(details);
     onClose();
   };
 
@@ -48,14 +48,14 @@ const AddCertificateDetails = ({ onClose, onSave }) => {
         <div className="mb-4">
           <label
             className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="projectTitle"
+            htmlFor="title"
           >
             Certificate Title:
           </label>
           <input
             type="text"
-            name="projectTitle"
-            id="projectTitle"
+            name="title"
+            id="title"
             className="w-full rounded border px-4 py-2"
             onChange={handleChange}
           />
@@ -78,14 +78,14 @@ const AddCertificateDetails = ({ onClose, onSave }) => {
         <div className="mb-4">
           <label
             className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="projectLink"
+            htmlFor="certificateLink"
           >
             Certificate Link:
           </label>
           <input
             type="text"
-            name="projectLink"
-            id="projectLink"
+            name="certificateLink"
+            id="certificateLink"
             className="w-full rounded border px-4 py-2"
             onChange={handleChange}
           />

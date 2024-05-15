@@ -2,6 +2,7 @@ import { sendMessage } from "../utils/chatApi";
 import { useContext, useState } from "react";
 import MessageContext from "../context/MessageContext";
 import { Socketcontext } from "../context/SocketContext";
+import { IoSend } from "react-icons/io5";
 const SendMessage = () => {
   const [sentMessage, setSentMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -39,20 +40,20 @@ const SendMessage = () => {
     }
   };
   return (
-    <div className="flex h-[10%] justify-between bg-white">
+    <div className="flex h-[10%] justify-between border border-solid bg-blue-900 text-white">
       <input
         type="text"
-        placeholder=" Type Something..."
-        className="h-full w-[80%] outline-none"
+        placeholder=" Sent message..."
+        className="px-4 h-full w-[80%] outline-none bg-blue-900 placeholder:text-white"
         value={sentMessage}
         onChange={(e) => setSentMessage(e.target.value)}
       />
-      <div className="">
+      <div>
         <button
-          className="mx-4 my-2 rounded-sm bg-blue-400 px-2 py-1 text-white"
+          className=" mx-4 my-2 rounded-sm bg-blue-900 px-2 py-1 text-white"
           onClick={handleClick}
         >
-          {isLoading ? "Sending..." : "Send"}
+          {isLoading ? "Sending..." : <IoSend className="h-8 w-8 bg-blue-900 " />}
         </button>
       </div>
     </div>

@@ -14,7 +14,7 @@ const MessageList = () => {
     }, [messages]);
 
     return (
-        <div className="h-[80%] overflow-y-auto" ref={messageListRef}>
+        <div className="h-[90%] overflow-y-auto border-b-gray-800" ref={messageListRef}>
             {
                 // add unqiue message id at backend
                 messages.map((message,index)=>{

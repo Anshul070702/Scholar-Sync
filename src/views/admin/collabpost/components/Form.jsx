@@ -11,7 +11,7 @@ const Form = () => {
   // State variables
   const [researchName, setResearchName] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
-  const [newTopic, setNewTopic] = useState("");
+  const [newTopic, setNewTopic] = useState([]);
   const [role, setRole] = useState("");
   const [stipend, setStipend] = useState("");
   const [duration, setDuration] = useState("");
@@ -67,7 +67,7 @@ const Form = () => {
   const handleTopicAdd = (topic) => {
     if (topic && !selectedTopics.includes(topic) && selectedTopics.length < 6) {
       setSelectedTopics([...selectedTopics, topic]);
-      setNewTopic("");
+      setNewTopic([]);
       setShowTopicFilter(false);
     }
   };
@@ -97,7 +97,7 @@ const Form = () => {
         toast.success("Your collab post has been created successfully.");
         setResearchName("");
         setSelectedTopics([]);
-        setNewTopic("");
+        setNewTopic([]);
         setRole("");
         setStipend("");
         setDuration("");
@@ -227,6 +227,7 @@ const Form = () => {
           type="text"
           value={stipend}
           onChange={(e) => setStipend(e.target.value)}
+          placeholder="&#8377;"
           className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
         />
       </div>
@@ -240,6 +241,7 @@ const Form = () => {
           type="text"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
+          placeholder="in months"
           className="text-bold block w-full rounded-md border-gray-300 px-3 py-2 text-navy-500 dark:bg-gray-300"
         />
       </div>
